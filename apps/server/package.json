@@ -1,5 +1,5 @@
 {
-  "name": "@go/server",
+  "name": "@huivo-admin/server",
   "type": "module",
   "exports": {
     "./client": {

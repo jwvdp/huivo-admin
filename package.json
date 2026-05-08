@@ -1,5 +1,5 @@
 {
-  "name": "vite-hono-cloudflare-monorepo-template",
+  "name": "huivo-admin",
   "private": true,
   "workspaces": [
     "apps/*"

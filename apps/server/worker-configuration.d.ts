@@ -6,22 +6,22 @@ declare namespace Cloudflare {
 		mainModule: typeof import("./src/index");
 	}
 	interface LocalEnv {
-		template_database: D1Database;
+		huivo_admin_database: D1Database;
 		API_BASE_URL: "http://localhost:3100";
 		BETTER_AUTH_URL: "http://localhost:3000/api/v1/auth";
-		BETTER_AUTH_SECRET: "6XPaDqZqViZajTxkizDoHTK1mOBZfgeG";
+		BETTER_AUTH_SECRET: "yJzMttAXnSkxplvgEdZG3EaekFexmt06";
 	}
 	interface ProductionEnv {
-		template_database: D1Database;
+		huivo_admin_database: D1Database;
 		API_BASE_URL: "https://template.2lazy2name.com";
 		BETTER_AUTH_URL: "https://template.2lazy2name.com/api/v1/auth";
-		BETTER_AUTH_SECRET: "6XPaDqZqViZajTxkizDoHTK1mOBZfgeG";
+		BETTER_AUTH_SECRET: "yJzMttAXnSkxplvgEdZG3EaekFexmt06";
 	}
 	interface Env {
-		template_database?: D1Database;
+		huivo_admin_database?: D1Database;
 		API_BASE_URL?: "http://localhost:3100" | "https://template.2lazy2name.com";
 		BETTER_AUTH_URL?: "http://localhost:3000/api/v1/auth" | "https://template.2lazy2name.com/api/v1/auth";
-		BETTER_AUTH_SECRET?: "6XPaDqZqViZajTxkizDoHTK1mOBZfgeG";
+		BETTER_AUTH_SECRET?: "yJzMttAXnSkxplvgEdZG3EaekFexmt06";
 	}
 }
 interface Env extends Cloudflare.Env {}

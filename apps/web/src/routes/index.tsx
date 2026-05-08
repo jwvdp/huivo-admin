@@ -277,7 +277,7 @@ function RouteComponent() {
           <li>
             Wrangler 为各环境绑定{" "}
             <code className="rounded bg-muted px-1 text-xs text-foreground">
-              template_database
+              huivo_admin_database
             </code>
             ，迁移目录指向{" "}
             <code className="rounded bg-muted px-1 text-xs text-foreground">
@@ -417,7 +417,7 @@ function RouteComponent() {
           <li>
             <strong>准备工作</strong> — 域名 DNS 托管到 Cloudflare；
             <code className="mx-1 rounded bg-muted px-1 text-xs text-foreground">
-              wrangler d1 create template-database
+              wrangler d1 create huivo-admin-database
             </code>
             创建生产 D1
           </li>

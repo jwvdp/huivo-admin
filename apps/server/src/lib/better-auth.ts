@@ -8,8 +8,8 @@ import type { AppBindings } from "../api/common";
 import { db } from "./drizzle";
 
 export const getAuth = (env: Env) => {
-  if (env.template_database === undefined) {
-    throw new Error("template_database is not set");
+  if (env.huivo_admin_database === undefined) {
+    throw new Error("huivo_admin_database is not set");
   }
 
   return betterAuth({
