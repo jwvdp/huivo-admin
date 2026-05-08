@@ -1,0 +1,83 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "explicit",
+    "source.format.oxc": "always"
+  },
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "notebook.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.associations": {
+    "*.lock*": "plaintext",
+    "*.worker-configuration.d.ts": "plaintext"
+  },
+  "files.exclude": {
+    // "**/node_modules/**": true,
+    // "**/dist/**": true,
+    // "**/build/**": true,
+    // "**/out/**": true,
+    // "**/tmp/**": true,
+    // "**/temp/**": true,
+    // "**/.turbo/**": true,
+    // "**/.wrangler/**": true,
+    // "**/.tanstack/**": true,
+    // "**/.claude/**": true,
+    // "**/.husky/**": true,
+    // "**/.tsconfig.base.json": true,
+    // "**/tsconfig.*.json": true,
+    // "**/tsconfig.json": true,
+    // "**/bun.lock": true,
+    // "*.md": true,
+    // "**/.env.*": true,
+    // "**/*.config.*": true
+  },
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true,
+    "**/.turbo/**": true,
+    "**/.wrangler/**": true,
+    "**/.tanstack/**": true
+  },
+  "typescript.tsserver.maxTsServerMemory": 8192,
+  "search.exclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "emmet.showExpandedAbbreviation": "never",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["*.jsonc", "*.lock"],
+      "schema": {
+        "allowTrailingCommas": true
+      }
+    }
+  ]
+}

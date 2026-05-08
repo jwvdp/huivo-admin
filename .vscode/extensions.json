@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "oxc.oxc-vscode",
+    "steoates.autoimport",
+    "ms-vscode.vscode-typescript-next",
+    "usernamehw.errorlens",
+    "yoavbls.pretty-ts-errors",
+    "cweijan.vscode-mysql-client2",
+    "pkief.material-icon-theme",
+    "rust-lang.rust-analyzer",
+    "exodiusstudios.comment-anchors"
+  ]
+}

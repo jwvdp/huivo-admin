@@ -1,0 +1,50 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "go-server",
+  "main": "./src/index.ts",
+  "compatibility_date": "2026-03-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "dev": {
+    "port": 3100,
+    "local_protocol": "http"
+  },
+  "env": {
+    "local": {
+      "vars": {
+        "API_BASE_URL": "http://localhost:3100",
+        "BETTER_AUTH_URL": "http://localhost:3000/api/v1/auth",
+        "BETTER_AUTH_SECRET": "6XPaDqZqViZajTxkizDoHTK1mOBZfgeG"
+      },
+      "d1_databases": [
+        {
+          "binding": "template_database",
+          "database_name": "template-database",
+          "migrations_dir": "./src/db/.migrations/",
+          "database_id": "29c2a65d-60e4-478b-8cb8-92d9421aac25"
+        }
+      ]
+    },
+    "production": {
+      "vars": {
+        "API_BASE_URL": "https://template.2lazy2name.com",
+        "BETTER_AUTH_URL": "https://template.2lazy2name.com/api/v1/auth",
+        "BETTER_AUTH_SECRET": "6XPaDqZqViZajTxkizDoHTK1mOBZfgeG"
+      },
+      "d1_databases": [
+        {
+          "binding": "template_database",
+          "database_name": "template-database",
+          "database_id": "29c2a65d-60e4-478b-8cb8-92d9421aac25",
+          "migrations_dir": "./src/db/.migrations"
+        }
+      ]
+    }
+  },
+  "routes": [
+    {
+      "pattern": "template.2lazy2name.com/api/*",
+      "zone_name": "2lazy2name.com"
+    }
+  ]
+}

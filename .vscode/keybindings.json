@@ -1,0 +1,150 @@
+// Place your key bindings in this file to override the defaults
+[
+  // 删除默认绑定
+  {
+    "key": "ctrl+d",
+    "command": "-deleteRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+q",
+    "command": "-workbench.action.quickOpenView"
+  },
+  {
+    "key": "ctrl+q",
+    "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
+    "when": "inQuickOpen && inViewsPicker"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "-cursorLineEnd",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "-cursorLineStart"
+  },
+  // Ctrl + wasd 移动光标
+  {
+    "key": "ctrl+w",
+    "command": "cursorUp",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "cursorDown",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "cursorLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+d",
+    "command": "cursorRight",
+    "when": "textInputFocus"
+  },
+  // Ctrl + ws 选择代码建议 / 移动光标
+  {
+    "key": "ctrl+w",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "selectPrevCodeAction",
+    "when": "codeActionMenuVisible"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "showPrevParameterHint",
+    "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "selectNextCodeAction",
+    "when": "codeActionMenuVisible"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "showNextParameterHint",
+    "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+  },
+
+  // Ctrl + wasd 展开和移动列表光标
+  {
+    "key": "ctrl+w",
+    "command": "list.focusUp",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "list.focusDown",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "list.collapse",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+  },
+  {
+    "key": "ctrl+d",
+    "command": "list.expand",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+  },
+  // Ctrl + QE 展开和折叠所有
+  {
+    "key": "ctrl+q",
+    "command": "list.collapseAll",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "list.expandAll",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+  },
+  // Ctrl + qe 移动到行首行尾
+  {
+    "key": "ctrl+e",
+    "command": "cursorLineEnd"
+  },
+  {
+    "key": "ctrl+q",
+    "command": "cursorLineStart"
+  },
+  // Ctrl + zx 移动到上个词
+  {
+    "key": "ctrl+z",
+    "command": "cursorWordLeft"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "cursorWordRight"
+  },
+  // Ctrl + t 切换控制台
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.terminal.toggleTerminal"
+  },
+  // Ctrl + f 切换到 Explorer
+  {
+    "key": "ctrl+f",
+    "command": "workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "-cursorRight",
+    "when": "textInputFocus"
+  },
+  // Ctrl + Enter 快速修复
+  {
+    "key": "ctrl+enter",
+    "command": "editor.action.quickFix"
+  }
+]
