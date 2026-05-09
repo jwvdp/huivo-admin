@@ -218,7 +218,7 @@ echo $CLOUDFLARE_ACCOUNT_ID $CLOUDFLARE_DATABASE_ID $CLOUDFLARE_TOKEN
 bunx drizzle-kit push --config src/db/drizzle.config.ts
 ```
 
-#### 部署 Worker（@go/server）
+#### 部署 Worker（@huivo-admin/server）
 
 ```bash
 cd apps/server
@@ -226,7 +226,7 @@ bun run deploy
 # 等效于 wrangler deploy --env production
 ```
 
-#### 部署前端（@go/web）
+#### 部署前端（@huivo-admin/web）
 
 ```bash
 cd apps/web
@@ -247,7 +247,7 @@ bun run deploy   # 部署 server + web
 
 ```
 ├── apps/
-│   ├── server/                    # @go/server — Cloudflare Worker
+│   ├── server/                    # @huivo-admin/server — Cloudflare Worker
 │   │   ├── src/
 │   │   │   ├── index.ts           # Hono app 入口，导出 AppType
 │   │   │   ├── client.ts          # hc<AppType> 工厂
@@ -263,7 +263,7 @@ bun run deploy   # 部署 server + web
 │   │   │       ├── drizzle.config.local.ts
 │   │   │       └── drizzle.clean.config.ts
 │   │   └── wrangler.jsonc
-│   └── web/                       # @go/web — React 前端
+│   └── web/                       # @huivo-admin/web — React 前端
 │       ├── src/
 │       │   ├── routes/            # TanStack Router 文件路由
 │       │   ├── lib/               # hono-rpc-client, tanstack-rpc, session

@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "go-server",
+  "name": "huivo-admin-server",
   "main": "./src/index.ts",
   "compatibility_date": "2026-03-17",
   "compatibility_flags": ["nodejs_compat"],
@@ -27,8 +27,8 @@
     },
     "production": {
       "vars": {
-        "API_BASE_URL": "https://template.2lazy2name.com",
-        "BETTER_AUTH_URL": "https://template.2lazy2name.com/api/v1/auth",
+        "API_BASE_URL": "https://huivo.2lazy2name.com",
+        "BETTER_AUTH_URL": "https://huivo.2lazy2name.com/api/v1/auth",
         "BETTER_AUTH_SECRET": "yJzMttAXnSkxplvgEdZG3EaekFexmt06"
       },
       "d1_databases": [
@@ -43,7 +43,7 @@
   },
   "routes": [
     {
-      "pattern": "template.2lazy2name.com/api/*",
+      "pattern": "huivo.2lazy2name.com/api/*",
       "zone_name": "2lazy2name.com"
     }
   ]

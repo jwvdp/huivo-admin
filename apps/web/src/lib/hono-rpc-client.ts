@@ -1,4 +1,4 @@
-import { hcWithType } from "@go/server/client";
+import { hcWithType } from "@huivo-admin/server/client";
 import { QueryClient } from "@tanstack/react-query";
 
 import { createHonoQueryClient } from "./tanstack-rpc";

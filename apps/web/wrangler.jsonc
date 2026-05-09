@@ -4,7 +4,7 @@
   "workers_dev": true,
   "routes": [
     {
-      "pattern": "template.2lazy2name.com/*",
+      "pattern": "huivo.2lazy2name.com/*",
       "zone_name": "2lazy2name.com"
     }
   ],

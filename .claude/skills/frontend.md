@@ -9,7 +9,7 @@ trigger: "when working on frontend code in apps/web/"
 位置: `apps/web/src/lib/hono-rpc-client.ts`.
 
 ```ts
-import { hcWithType } from "@go/server/client";
+import { hcWithType } from "@huivo-admin/server/client";
 import { createHonoQueryClient } from "./tanstack-rpc";
 
 export const rpc = createHonoQueryClient(
