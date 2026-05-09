@@ -1,6 +1,7 @@
 import type * as React from "react";
 
-import { FileText } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { SquareTerminal } from "lucide-react";
 
 import {
   Sidebar,
@@ -12,18 +13,40 @@ import {
   SidebarMenuItem
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/better-auth-client";
-import { NavMain } from "@/routes/_protected/components/sidebar/nav-main";
 import { NavUser } from "@/routes/_protected/components/sidebar/nav-user";
 
-const data = {
-  navMain: [
-    {
-      icon: FileText,
-      title: "Posts",
-      url: "/post"
-    }
-  ]
-};
+import { NavGroup } from "./nav-group";
+
+const sidebarItems = [
+  {
+    icon: SquareTerminal,
+    items: [
+      {
+        icon: SquareTerminal,
+        title: "订单",
+        url: "/sales/orders"
+      },
+      {
+        icon: SquareTerminal,
+        title: "客户",
+        url: "/sales/clients"
+      }
+    ],
+    title: "销售"
+  },
+  {
+    icon: SquareTerminal,
+    items: [
+      {
+        icon: SquareTerminal,
+        title: "资源",
+        url: "/production/resources"
+      }
+    ],
+    title: "生产",
+    url: "/production"
+  }
+];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = authClient.useSession();
@@ -45,21 +68,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               size="lg"
             >
-              <a href="/">
+              <Link to="/dashboard">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <span className="text-sm font-bold">G</span>
+                  <span className="text-sm font-bold">汇合</span>
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Template</span>
-                  <span className="truncate text-xs">Example Project</span>
+                  <span>汇合数据管理系统</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        {sidebarItems.map((item) => (
+          <NavGroup
+            key={item.title}
+            title={item.title}
+            items={item.items}
+          />
+        ))}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />
