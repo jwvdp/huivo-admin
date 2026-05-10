@@ -2,6 +2,8 @@
 
 Skills:
 
+- **[db-schema-and-seed](.claude/skills/db-schema-and-seed.md)** — DB schema 定义：表、列规则、FK、枚举、注册流程、种子数据
+
 ---
 
 ## 开发流程
