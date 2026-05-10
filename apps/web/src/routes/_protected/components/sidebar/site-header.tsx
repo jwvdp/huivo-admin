@@ -1,5 +1,6 @@
 import { Link, useMatches } from "@tanstack/react-router";
 import { SidebarIcon } from "lucide-react";
+import { Fragment } from "react";
 
 import {
   Breadcrumb,
@@ -63,16 +64,18 @@ export function SiteHeader() {
           <Breadcrumb className="hidden sm:block">
             <BreadcrumbList>
               {crumbs.map((crumb, index) => (
-                <BreadcrumbItem key={crumb.id}>
-                  {index < crumbs.length - 1 ? (
-                    <BreadcrumbLink asChild>
-                      <Link to={crumb.pathname}>{crumb.label}</Link>
-                    </BreadcrumbLink>
-                  ) : (
-                    <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-                  )}
+                <Fragment key={crumb.id}>
+                  <BreadcrumbItem>
+                    {index < crumbs.length - 1 ? (
+                      <BreadcrumbLink asChild>
+                        <Link to={crumb.pathname}>{crumb.label}</Link>
+                      </BreadcrumbLink>
+                    ) : (
+                      <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                    )}
+                  </BreadcrumbItem>
                   {index < crumbs.length - 1 && <BreadcrumbSeparator />}
-                </BreadcrumbItem>
+                </Fragment>
               ))}
             </BreadcrumbList>
           </Breadcrumb>
