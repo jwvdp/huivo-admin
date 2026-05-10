@@ -1,7 +1,6 @@
 import { drizzle } from "drizzle-orm/d1";
 
 import { account, session, user, verification } from "../db/schemas/auth";
-import { post } from "../db/schemas/post";
 
 export const db = (env: Env) => {
   if (env.huivo_admin_database === undefined) {
@@ -9,6 +8,6 @@ export const db = (env: Env) => {
   }
 
   return drizzle(env.huivo_admin_database, {
-    schema: { account, post, session, user, verification }
+    schema: { account, session, user, verification }
   });
 };

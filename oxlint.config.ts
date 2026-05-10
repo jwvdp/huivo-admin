@@ -12,7 +12,6 @@ export default defineConfig({
     "**/*.gen.ts",
     "**/worker-configuration.d.ts"
   ],
-  // TanStack Router: dynamic segments like `$postId` must match `createFileRoute(.../$postId)` and param keys.
   overrides: [
     {
       files: ["**/routes/**/*.{ts,tsx}"],

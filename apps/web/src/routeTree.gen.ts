@@ -15,9 +15,6 @@ import { Route as DebugIndexRouteImport } from './routes/debug/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
-import { Route as ProtectedPostIndexRouteImport } from './routes/_protected/post/index'
-import { Route as ProtectedPostNewRouteImport } from './routes/_protected/post/new'
-import { Route as ProtectedPostPostIdRouteImport } from './routes/_protected/post/$postId'
 
 const ProtectedRouteRoute = ProtectedRouteRouteImport.update({
   id: '/_protected',
@@ -48,21 +45,6 @@ const ProtectedDashboardRoute = ProtectedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => ProtectedRouteRoute,
 } as any)
-const ProtectedPostIndexRoute = ProtectedPostIndexRouteImport.update({
-  id: '/post/',
-  path: '/post/',
-  getParentRoute: () => ProtectedRouteRoute,
-} as any)
-const ProtectedPostNewRoute = ProtectedPostNewRouteImport.update({
-  id: '/post/new',
-  path: '/post/new',
-  getParentRoute: () => ProtectedRouteRoute,
-} as any)
-const ProtectedPostPostIdRoute = ProtectedPostPostIdRouteImport.update({
-  id: '/post/$postId',
-  path: '/post/$postId',
-  getParentRoute: () => ProtectedRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -70,9 +52,6 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/debug/': typeof DebugIndexRoute
-  '/post/$postId': typeof ProtectedPostPostIdRoute
-  '/post/new': typeof ProtectedPostNewRoute
-  '/post/': typeof ProtectedPostIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -80,9 +59,6 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/debug': typeof DebugIndexRoute
-  '/post/$postId': typeof ProtectedPostPostIdRoute
-  '/post/new': typeof ProtectedPostNewRoute
-  '/post': typeof ProtectedPostIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -92,31 +68,12 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/debug/': typeof DebugIndexRoute
-  '/_protected/post/$postId': typeof ProtectedPostPostIdRoute
-  '/_protected/post/new': typeof ProtectedPostNewRoute
-  '/_protected/post/': typeof ProtectedPostIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/dashboard'
-    | '/auth/login'
-    | '/auth/register'
-    | '/debug/'
-    | '/post/$postId'
-    | '/post/new'
-    | '/post/'
+  fullPaths: '/' | '/dashboard' | '/auth/login' | '/auth/register' | '/debug/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/dashboard'
-    | '/auth/login'
-    | '/auth/register'
-    | '/debug'
-    | '/post/$postId'
-    | '/post/new'
-    | '/post'
+  to: '/' | '/dashboard' | '/auth/login' | '/auth/register' | '/debug'
   id:
     | '__root__'
     | '/'
@@ -125,9 +82,6 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/debug/'
-    | '/_protected/post/$postId'
-    | '/_protected/post/new'
-    | '/_protected/post/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -182,42 +136,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedDashboardRouteImport
       parentRoute: typeof ProtectedRouteRoute
     }
-    '/_protected/post/': {
-      id: '/_protected/post/'
-      path: '/post'
-      fullPath: '/post/'
-      preLoaderRoute: typeof ProtectedPostIndexRouteImport
-      parentRoute: typeof ProtectedRouteRoute
-    }
-    '/_protected/post/new': {
-      id: '/_protected/post/new'
-      path: '/post/new'
-      fullPath: '/post/new'
-      preLoaderRoute: typeof ProtectedPostNewRouteImport
-      parentRoute: typeof ProtectedRouteRoute
-    }
-    '/_protected/post/$postId': {
-      id: '/_protected/post/$postId'
-      path: '/post/$postId'
-      fullPath: '/post/$postId'
-      preLoaderRoute: typeof ProtectedPostPostIdRouteImport
-      parentRoute: typeof ProtectedRouteRoute
-    }
   }
 }
 
 interface ProtectedRouteRouteChildren {
   ProtectedDashboardRoute: typeof ProtectedDashboardRoute
-  ProtectedPostPostIdRoute: typeof ProtectedPostPostIdRoute
-  ProtectedPostNewRoute: typeof ProtectedPostNewRoute
-  ProtectedPostIndexRoute: typeof ProtectedPostIndexRoute
 }
 
 const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
   ProtectedDashboardRoute: ProtectedDashboardRoute,
-  ProtectedPostPostIdRoute: ProtectedPostPostIdRoute,
-  ProtectedPostNewRoute: ProtectedPostNewRoute,
-  ProtectedPostIndexRoute: ProtectedPostIndexRoute,
 }
 
 const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(

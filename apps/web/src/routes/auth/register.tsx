@@ -90,8 +90,8 @@ function RouteComponent() {
       <div className="flex w-full max-w-md flex-col gap-6">
         <Card>
           <CardHeader className="text-center">
-            <CardTitle className="text-xl">注册团美</CardTitle>
-            <CardDescription>通过社交账号注册</CardDescription>
+            <CardTitle className="text-xl">注册</CardTitle>
+            <CardDescription>通过邮箱注册</CardDescription>
           </CardHeader>
           <CardContent>
             <form

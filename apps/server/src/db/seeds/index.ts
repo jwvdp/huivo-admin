@@ -4,12 +4,16 @@ import type { LibSQLDatabase } from "drizzle-orm/libsql";
 import { createClient } from "@libsql/client";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { organization } from "better-auth/plugins";
 import { drizzle } from "drizzle-orm/libsql";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 
+import { ac, admin, member, owner } from "../../lib/auth-permissions";
 import { schemas } from "../schemas";
-import { seedPost } from "./post";
+import { seedDepartment } from "./department";
+import { seedOrganization } from "./organization";
+import { seedRole } from "./role";
 import { seedUser } from "./user";
 
 function findLocalD1Url(): string {
@@ -41,12 +45,36 @@ export const seedAuth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true
-  }
+  },
+  plugins: [
+    organization({
+      ac,
+      allowUserToCreateOrganization: true,
+      roles: { admin, member, owner }
+    })
+  ]
 });
 
 try {
-  await seedPost(seedDb);
-  await seedUser(seedAuth as Auth);
+  await seedDepartment(seedDb);
+  await seedRole(seedDb);
+
+  // user + org seeds can fail on re-seed (user already exists), handle gracefully
+  try {
+    await seedUser(seedAuth as unknown as Auth);
+  } catch (error) {
+    console.log(
+      "User seed skipped (may already exist):",
+      (error as Error).message
+    );
+  }
+
+  try {
+    await seedOrganization(seedDb);
+  } catch (error) {
+    console.log("Organization seed skipped:", (error as Error).message);
+  }
+
   console.log("Database seeded successfully.");
 } catch (error) {
   console.error("Seed failed:", error);

@@ -1,4 +1,3 @@
-import { SiTelegram } from "@icons-pack/react-simple-icons";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
@@ -17,8 +16,7 @@ import {
   Field,
   FieldDescription,
   FieldGroup,
-  FieldLabel,
-  FieldSeparator
+  FieldLabel
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/better-auth-client";
@@ -85,18 +83,6 @@ function RouteComponent() {
               }}
             >
               <FieldGroup>
-                <Field>
-                  <Button
-                    type="button"
-                    variant="outline"
-                  >
-                    <SiTelegram />
-                    使用 Telegram 登录
-                  </Button>
-                </Field>
-                <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-                  或者使用邮箱登录
-                </FieldSeparator>
                 <loginForm.Field name="email">
                   {(field) => (
                     <Field>
