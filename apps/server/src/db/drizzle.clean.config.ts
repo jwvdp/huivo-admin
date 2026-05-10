@@ -25,5 +25,5 @@ export default defineConfig({
     url: findLocalD1Url()
   },
   dialect: "sqlite",
-  schema: "./src/db/schemas/reset.ts"
+  schema: "./src/db/drizzle.clean.config.ts"
 }) satisfies Config;
