@@ -10,6 +10,8 @@ export const userWithRoleSchema = z.object({
   updatedAt: z.number()
 });
 
+export type UserWithRole = z.infer<typeof userWithRoleSchema>;
+
 export const updateUserRolesSchema = z.object({
   roleIds: z.array(z.string())
 });

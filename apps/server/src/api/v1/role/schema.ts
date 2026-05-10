@@ -14,42 +14,17 @@ export const roleSchema = z.object({
   updatedAt: z.number()
 });
 
-export const createRoleSchema = z.object({
-  dataScope: z
-    .enum(["all", "department", "department_and_sub", "self"])
-    .optional(),
-  description: z.string().optional(),
-  fieldPermissions: z
-    .array(
-      z.object({
-        field: z.string(),
-        resource: z.string(),
-        visible: z.boolean()
-      })
-    )
-    .optional(),
-  name: z.string().min(1).max(100),
-  permissions: z
-    .array(z.object({ action: z.string(), resource: z.string() }))
-    .optional()
-});
+export type Role = z.infer<typeof roleSchema>;
 
-export const updateRoleSchema = z.object({
-  dataScope: z
-    .enum(["all", "department", "department_and_sub", "self"])
-    .optional(),
-  description: z.string().optional(),
-  fieldPermissions: z
-    .array(
-      z.object({
-        field: z.string(),
-        resource: z.string(),
-        visible: z.boolean()
-      })
-    )
-    .optional(),
-  name: z.string().min(1).max(100).optional(),
-  permissions: z
-    .array(z.object({ action: z.string(), resource: z.string() }))
-    .optional()
-});
+export const createRoleSchema = roleSchema
+  .pick({
+    dataScope: true,
+    description: true,
+    fieldPermissions: true,
+    name: true,
+    permissions: true
+  })
+  .partial()
+  .extend({ name: z.string().min(1).max(100) });
+
+export const updateRoleSchema = createRoleSchema.partial();

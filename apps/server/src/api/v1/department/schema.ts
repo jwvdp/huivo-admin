@@ -13,17 +13,26 @@ export const departmentSchema = z.object({
   updatedAt: z.string()
 });
 
-export const createDepartmentSchema = z.object({
-  defaultRoleId: z.string().nullable().optional(),
-  name: z.string().min(1).max(100),
-  order: z.number().int().optional(),
-  parentId: z.string().nullable().optional()
-});
+export type Department = z.infer<typeof departmentSchema>;
 
-export const updateDepartmentSchema = z.object({
-  defaultRoleId: z.string().nullable().optional(),
-  headUserId: z.string().nullable().optional(),
-  name: z.string().min(1).max(100).optional(),
-  order: z.number().int().optional(),
-  parentId: z.string().nullable().optional()
-});
+export const createDepartmentSchema = departmentSchema
+  .pick({ defaultRoleId: true, name: true, order: true, parentId: true })
+  .partial()
+  .extend({
+    name: z.string().min(1).max(100),
+    order: z.number().int().optional()
+  });
+
+export const updateDepartmentSchema = departmentSchema
+  .pick({
+    defaultRoleId: true,
+    headUserId: true,
+    name: true,
+    order: true,
+    parentId: true
+  })
+  .partial()
+  .extend({
+    name: z.string().min(1).max(100).optional(),
+    order: z.number().int().optional()
+  });

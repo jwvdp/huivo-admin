@@ -4,6 +4,7 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 
 import type { AppBindings } from "./api/common";
 
+import { configApp } from "./api/v1/config";
 import { departmentApp } from "./api/v1/department";
 import { roleApp } from "./api/v1/role";
 import { userApp } from "./api/v1/user";
@@ -16,6 +17,7 @@ withAuth(app);
 withScalar(app);
 
 const routes = app
+  .route("/api/v1/config/permissions", configApp)
   .route("/api/v1/department", departmentApp)
   .route("/api/v1/role", roleApp)
   .route("/api/v1/user", userApp);

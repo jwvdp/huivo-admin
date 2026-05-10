@@ -50,7 +50,7 @@ export const getDepartmentRoute = createRoute({
   },
   responses: {
     200: jsonResponse(departmentSchema),
-    404: jsonResponse(z.object({ message: z.string() }))
+    404: errorResponse("Department not found")
   },
   summary: "获取部门",
   tags: ["department"]

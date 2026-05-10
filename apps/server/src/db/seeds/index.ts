@@ -48,4 +48,4 @@ export const seedAuth = betterAuth({
 // 先清理 + 重建基础数据（顺序：角色 → 部门 → 用户）
 await seedRole(seedDb);
 await seedDepartment(seedDb);
-await seedUser(seedAuth as Auth);
+await seedUser(seedAuth as Auth, seedDb);
