@@ -10,9 +10,7 @@ Skills:
 
 ```bash
 # 完成功能后检查类型和代码质量
-# 在根目录运行
-bun check
-# 自动修复
+# 在根目录运行自动修复和检查
 bun fix
 
 ## Tech Stack
