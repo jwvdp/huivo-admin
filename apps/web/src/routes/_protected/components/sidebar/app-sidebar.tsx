@@ -1,7 +1,7 @@
 import type * as React from "react";
 
 import { Link } from "@tanstack/react-router";
-import { SquareTerminal } from "lucide-react";
+import { Building2, Shield, SquareTerminal, Users } from "lucide-react";
 
 import {
   Sidebar,
@@ -45,6 +45,15 @@ const sidebarItems = [
     ],
     title: "生产",
     url: "/production"
+  },
+  {
+    icon: Building2,
+    items: [
+      { icon: Building2, title: "部门管理", url: "/iam/departments" },
+      { icon: Shield, title: "角色管理", url: "/iam/roles" },
+      { icon: Users, title: "用户管理", url: "/iam/users" }
+    ],
+    title: "系统管理"
   }
 ];
 
