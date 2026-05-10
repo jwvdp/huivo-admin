@@ -3,6 +3,7 @@
 Skills:
 
 - **[db-schema-and-seed](.claude/skills/db-schema-and-seed.md)** — DB schema 定义：表、列规则、FK、枚举、注册流程、种子数据
+- **[api-zod-schema](.claude/skills/api-zod-schema.md)** — API 端点规范：Zod schema 推导 + route/handler/index 四层结构
 
 ---
 
