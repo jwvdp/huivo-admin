@@ -35,6 +35,8 @@ export interface AppBindings {
   Bindings: Env;
   Variables: {
     userId?: string;
+    roleNames?: string[];
+    dataScope?: string;
   };
 }
 

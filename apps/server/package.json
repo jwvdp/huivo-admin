@@ -11,7 +11,7 @@
     "dev": "wrangler dev --env local --inspector-port 9231",
     "tsc": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "deploy": "wrangler deploy --env production",
-    "auth": "bunx auth generate --config src/lib/better-auth.ts --output src/db/schemas/auth.ts --yes",
+    "auth": "bunx auth generate --config src/lib/auth.ts --output src/db/schemas/auth.ts --yes",
     "push": "drizzle-kit push --config src/db/drizzle.local.config.ts --force",
     "db:clean": "drizzle-kit push --config src/db/drizzle.clean.config.ts --force",
     "db:seed": "bun run src/db/seeds/index.ts",
