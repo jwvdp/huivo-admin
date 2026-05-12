@@ -1,11 +1,11 @@
 import { createRoute, z } from "@hono/zod-openapi";
-
-import { errorResponse, jsonBody, jsonResponse } from "../../common";
 import {
   createDepartmentSchema,
   departmentSchema,
   updateDepartmentSchema
-} from "./schema";
+} from "@huivo-admin/types";
+
+import { errorResponse, jsonBody, jsonResponse } from "../../common";
 
 export const listDepartmentRoute = createRoute({
   description: "获取所有部门，按 order 排序",

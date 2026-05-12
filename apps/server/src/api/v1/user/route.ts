@@ -1,7 +1,7 @@
 import { createRoute, z } from "@hono/zod-openapi";
+import { updateUserRolesSchema, userWithRoleSchema } from "@huivo-admin/types";
 
 import { errorResponse, jsonBody, jsonResponse } from "../../common";
-import { updateUserRolesSchema, userWithRoleSchema } from "./schema";
 
 export const listUserRoute = createRoute({
   description: "获取所有用户及其角色信息",

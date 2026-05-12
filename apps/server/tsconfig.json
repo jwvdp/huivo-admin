@@ -6,6 +6,12 @@
     "types": ["node"],
     "strictNullChecks": true
   },
-  "include": ["src/**/*.ts", "worker-configuration.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "worker-configuration.d.ts",
+    "../../packages/types/src/types/department.ts",
+    "../../packages/types/src/types/role.ts",
+    "../../packages/types/src/types/user.ts"
+  ],
   "exclude": ["dist", "src/db/.migrations"]
 }

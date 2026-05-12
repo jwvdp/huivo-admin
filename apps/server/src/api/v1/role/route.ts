@@ -1,7 +1,11 @@
 import { createRoute, z } from "@hono/zod-openapi";
+import {
+  createRoleSchema,
+  roleSchema,
+  updateRoleSchema
+} from "@huivo-admin/types";
 
 import { errorResponse, jsonBody, jsonResponse } from "../../common";
-import { createRoleSchema, roleSchema, updateRoleSchema } from "./schema";
 
 export const listRoleRoute = createRoute({
   description: "获取所有角色及其权限、字段掩码配置",
