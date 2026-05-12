@@ -244,7 +244,6 @@ function createEndpoint<TEndpoint extends RpcEndpoint>(
   verb: string,
   queryClient: QueryClient
 ): RpcQueryEndpoint<TEndpoint> {
-  const namespaceKey: QueryKey = basePath;
   const fullPath: string[] = [...basePath, verb];
 
   const rpcEndpoint: RpcQueryEndpoint<TEndpoint> = {
@@ -324,8 +323,6 @@ function createEndpoint<TEndpoint extends RpcEndpoint>(
   };
 
   return rpcEndpoint;
-  // oxlint-disable-next-line no-unreachable
-  void namespaceKey;
 }
 
 function splitArgs(args: Record<string, unknown> | undefined): {

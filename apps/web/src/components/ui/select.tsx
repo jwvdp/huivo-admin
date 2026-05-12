@@ -189,3 +189,6 @@ export {
   SelectTrigger,
   SelectValue,
 }
+
+// 用于 Select 不允许接收 null 时使用的缺省值。 
+export const NULL_SENTINEL = "__NULL__";

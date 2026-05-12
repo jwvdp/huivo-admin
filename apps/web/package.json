@@ -12,6 +12,7 @@
     "@cloudflare/vite-plugin": "^1.35.0",
     "@hookform/resolvers": "^5.2.2",
     "@huivo-admin/server": "workspace:*",
+    "@huivo-admin/types": "workspace:*",
     "@icons-pack/react-simple-icons": "^13.13.0",
     "@platejs/basic-nodes": "^53.0.0",
     "@radix-ui/react-toolbar": "^1.1.11",

@@ -15,6 +15,9 @@ import { Route as DebugIndexRouteImport } from './routes/debug/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
+import { Route as ProtectedIamUsersIndexRouteImport } from './routes/_protected/iam/users/index'
+import { Route as ProtectedIamRolesIndexRouteImport } from './routes/_protected/iam/roles/index'
+import { Route as ProtectedIamDepartmentsIndexRouteImport } from './routes/_protected/iam/departments/index'
 
 const ProtectedRouteRoute = ProtectedRouteRouteImport.update({
   id: '/_protected',
@@ -45,6 +48,22 @@ const ProtectedDashboardRoute = ProtectedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => ProtectedRouteRoute,
 } as any)
+const ProtectedIamUsersIndexRoute = ProtectedIamUsersIndexRouteImport.update({
+  id: '/iam/users/',
+  path: '/iam/users/',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedIamRolesIndexRoute = ProtectedIamRolesIndexRouteImport.update({
+  id: '/iam/roles/',
+  path: '/iam/roles/',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedIamDepartmentsIndexRoute =
+  ProtectedIamDepartmentsIndexRouteImport.update({
+    id: '/iam/departments/',
+    path: '/iam/departments/',
+    getParentRoute: () => ProtectedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -52,6 +71,9 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/debug/': typeof DebugIndexRoute
+  '/iam/departments/': typeof ProtectedIamDepartmentsIndexRoute
+  '/iam/roles/': typeof ProtectedIamRolesIndexRoute
+  '/iam/users/': typeof ProtectedIamUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -59,6 +81,9 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/debug': typeof DebugIndexRoute
+  '/iam/departments': typeof ProtectedIamDepartmentsIndexRoute
+  '/iam/roles': typeof ProtectedIamRolesIndexRoute
+  '/iam/users': typeof ProtectedIamUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -68,12 +93,31 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/debug/': typeof DebugIndexRoute
+  '/_protected/iam/departments/': typeof ProtectedIamDepartmentsIndexRoute
+  '/_protected/iam/roles/': typeof ProtectedIamRolesIndexRoute
+  '/_protected/iam/users/': typeof ProtectedIamUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/auth/login' | '/auth/register' | '/debug/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/auth/login'
+    | '/auth/register'
+    | '/debug/'
+    | '/iam/departments/'
+    | '/iam/roles/'
+    | '/iam/users/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/auth/login' | '/auth/register' | '/debug'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/auth/login'
+    | '/auth/register'
+    | '/debug'
+    | '/iam/departments'
+    | '/iam/roles'
+    | '/iam/users'
   id:
     | '__root__'
     | '/'
@@ -82,6 +126,9 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/debug/'
+    | '/_protected/iam/departments/'
+    | '/_protected/iam/roles/'
+    | '/_protected/iam/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -136,15 +183,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedDashboardRouteImport
       parentRoute: typeof ProtectedRouteRoute
     }
+    '/_protected/iam/users/': {
+      id: '/_protected/iam/users/'
+      path: '/iam/users'
+      fullPath: '/iam/users/'
+      preLoaderRoute: typeof ProtectedIamUsersIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/iam/roles/': {
+      id: '/_protected/iam/roles/'
+      path: '/iam/roles'
+      fullPath: '/iam/roles/'
+      preLoaderRoute: typeof ProtectedIamRolesIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/iam/departments/': {
+      id: '/_protected/iam/departments/'
+      path: '/iam/departments'
+      fullPath: '/iam/departments/'
+      preLoaderRoute: typeof ProtectedIamDepartmentsIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
   }
 }
 
 interface ProtectedRouteRouteChildren {
   ProtectedDashboardRoute: typeof ProtectedDashboardRoute
+  ProtectedIamDepartmentsIndexRoute: typeof ProtectedIamDepartmentsIndexRoute
+  ProtectedIamRolesIndexRoute: typeof ProtectedIamRolesIndexRoute
+  ProtectedIamUsersIndexRoute: typeof ProtectedIamUsersIndexRoute
 }
 
 const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
   ProtectedDashboardRoute: ProtectedDashboardRoute,
+  ProtectedIamDepartmentsIndexRoute: ProtectedIamDepartmentsIndexRoute,
+  ProtectedIamRolesIndexRoute: ProtectedIamRolesIndexRoute,
+  ProtectedIamUsersIndexRoute: ProtectedIamUsersIndexRoute,
 }
 
 const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(
