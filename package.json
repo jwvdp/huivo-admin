@@ -2,7 +2,8 @@
   "name": "huivo-admin",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "type": "module",
   "scripts": {

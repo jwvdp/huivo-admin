@@ -1,0 +1,10 @@
+{
+  "name": "@huivo-admin/types",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "zod": "4.4.3"
+  }
+}
