@@ -1,128 +1,47 @@
 ---
 name: api-zod-schema
-description: "Backend API conventions: Zod schema derivation + endpoint structure (route/handler/index)"
-trigger: "when creating or modifying files in apps/server/src/api/v1/"
+description: Use when creating or modifying API endpoint files in apps/server/src/api/ — route definitions, handlers, and module entry points
 ---
 
-## 模块结构
+# API Endpoint Conventions
 
-每个 API 模块四层，放在 `api/v1/<domain>/` 目录下：
+## Overview
+
+Each API module uses a 3-layer structure under `api/v1/<domain>/`. Schemas are imported from `@huivo-admin/types` — see **shared-types-package** skill for schema definitions.
+
+## Module Structure
 
 ```
 api/v1/<domain>/
-  schema.ts   — Zod schema 定义
-  route.ts    — OpenAPI 路由定义
-  handler.ts  — 请求处理器
-  index.ts    — 模块入口，挂载路由
+  route.ts    — OpenAPI route definitions
+  handler.ts  — request handlers
+  index.ts    — module entry, mounts routes
 ```
 
-根入口 `src/index.ts` 挂载子模块：
+Root `src/index.ts` mounts sub-modules:
 
 ```ts
 app.route("/api/v1/role", roleApp);
 ```
 
-子模块内路由用**相对路径**，运行时会拼接前缀（如 `"/"` → `/api/v1/role`）。
+Sub-module routes use **relative paths** (`"/"` → `/api/v1/role` at runtime).
 
----
-
-## Schema 定义（schema.ts）
-
-### 核心规则
-
-**不要重新定义 create/update schema。** 从 base entity schema 用 `.pick()`, `.partial()`, `.extend()` 推导。
-
-### 基础模式
-
-```ts
-// base — 完整实体
-export const roleSchema = z.object({
-  dataScope: z.enum(["all", "department", "department_and_sub", "self"]),
-  description: z.string(),
-  fieldPermissions: z.array(
-    z.object({ field: z.string(), resource: z.string(), visible: z.boolean() })
-  ),
-  id: z.string(),
-  isBuiltIn: z.boolean(),
-  name: z.string(),
-  permissions: z.array(z.object({ action: z.string(), resource: z.string() }))
-});
-
-// create — pick 需要的字段 → partial() 让非必填 → extend() 覆盖验证规则不同的字段
-export const createRoleSchema = roleSchema
-  .pick({
-    dataScope: true,
-    description: true,
-    fieldPermissions: true,
-    name: true,
-    permissions: true
-  })
-  .partial()
-  .extend({ name: z.string().min(1).max(100) });
-
-// update — createSchema 全 partial，复用所有验证
-export const updateRoleSchema = createRoleSchema.partial();
-```
-
-### 处理字段差异
-
-如果 create 和 update 的字段集合不同，各自 `.pick()`：
-
-```ts
-export const createDepartmentSchema = departmentSchema
-  .pick({ defaultRoleId: true, name: true, order: true, parentId: true })
-  .partial()
-  .extend({
-    name: z.string().min(1).max(100),
-    order: z.number().int().optional()
-  });
-
-export const updateDepartmentSchema = departmentSchema
-  .pick({
-    defaultRoleId: true,
-    headUserId: true,
-    name: true,
-    order: true,
-    parentId: true
-  })
-  .partial()
-  .extend({
-    name: z.string().min(1).max(100).optional(),
-    order: z.number().int().optional()
-  });
-```
-
-### 需要 `.extend()` 覆盖的场景
-
-只有 base schema 的验证不够用时才覆盖：
-
-| 场景                                               | 做法             |
-| -------------------------------------------------- | ---------------- |
-| 字段需要更严格的类型约束（如 `name` 要 `.min(1)`） | `.extend()`      |
-| 字段需要额外 refine（如 `order` 要 `.int()`）      | `.extend()`      |
-| 类型、optional、nullable 完全继承 base             | 不处理，自动继承 |
-
-### 例外
-
-- 响应 schema（如 `userWithRoleSchema`）不需要 create/update 版本，保持原样
-- 与 base 字段结构完全不同的 schema（如 `updateUserRolesSchema` 只有 `roleIds`），单独定义
-
----
-
-## 路由定义（route.ts）
-
-使用 `createRoute()` 定义 OpenAPI 路由，每个路由是一个具名导出常量。
+## Route Definition (route.ts)
 
 ```ts
 import { createRoute, z } from "@hono/zod-openapi";
+import {
+  createRoleSchema,
+  roleSchema,
+  updateRoleSchema
+} from "@huivo-admin/types";
 import { errorResponse, jsonBody, jsonResponse } from "../../common";
 
 export const listRoleRoute = createRoute({
   method: "get",
   path: "/",
-  responses: {
-    200: jsonResponse(z.array(roleSchema))
-  },
+  responses: { 200: jsonResponse(z.array(roleSchema)) },
+  summary: "角色列表",
   tags: ["role"]
 });
 
@@ -137,30 +56,27 @@ export const updateRoleRoute = createRoute({
     200: jsonResponse(roleSchema),
     404: errorResponse("Role not found")
   },
+  summary: "更新角色",
   tags: ["role"]
 });
 ```
 
-### 约定
+### Conventions
 
-- **方法**: get / post / patch / delete（全小写）
-- **路径参数**: 用 `param` 声明 `z.object({ roleId: z.string() })`
-- **响应**: 成功用 `jsonResponse(schema)`，错误用 `errorResponse("描述")`
-- **tags**: 和模块名一致
-- 所有 `responses` 不要省略 `description` —— `jsonResponse` 有默认值，`errorResponse` 的入参就是 description
-- 每个路由导出类型：`export type XxxRoute = typeof xxxRoute`
-- path param schema 保持内联，不需要提取到 schema.ts
+- **Methods**: `get` / `post` / `patch` / `delete` (lowercase)
+- **Path params**: declared inline — `z.object({ roleId: z.string() })`, not extracted to types package
+- **Responses**: success → `jsonResponse(schema)`, error → `errorResponse("description")`
+- **Tags**: match the module name
+- Export route type: `export type XxxRoute = typeof xxxRoute`
+- Sub-routes (e.g., `/:userId/roles`) live under the parent module
 
----
+## Handler (handler.ts)
 
-## 请求处理（handler.ts）
-
-handler 用 `AppRouteHandler<TRoute>` 类型，从 `c.req.valid()` 取已验证的数据。
+Use `AppRouteHandler<TRoute>`. Extract validated data with `c.req.valid()`:
 
 ```ts
 import type { AppRouteHandler } from "../../common";
 import type { ListRoleRoute, CreateRoleRoute } from "./route";
-
 import { role as roleTable } from "../../../db/schemas/role";
 import { db } from "../../../lib/drizzle";
 
@@ -181,47 +97,40 @@ export const createRoleHandler: AppRouteHandler<CreateRoleRoute> = async (
 };
 ```
 
-### 数据提取
+### Data Extraction
 
-| 来源         | 方法                   |
+| Source       | Method                 |
 | ------------ | ---------------------- |
 | JSON body    | `c.req.valid("json")`  |
 | Path params  | `c.req.valid("param")` |
 | Query params | `c.req.valid("query")` |
 
-### 错误处理模式
+Always use `c.req.valid()` — never `c.req.json()` or `c.req.param()` (those skip validation).
+
+### Error Handling
 
 ```ts
-// 1. 检查存在（404）
+// 404 — existence check
 const existing = await db(c.env)
   .select({ id: roleTable.id })
   .from(roleTable)
   .where(eq(roleTable.id, roleId))
   .limit(1)
   .then((r) => r[0]);
+if (!existing) return c.json({ message: "Role not found" }, 404);
 
-if (!existing) {
-  return c.json({ message: "Role not found" }, 404);
-}
-
-// 2. 检查业务约束（400）
-if (existing.isBuiltIn) {
+// 400 — business constraint
+if (existing.isBuiltIn)
   return c.json({ message: "Built-in role cannot be deleted" }, 400);
-}
 ```
 
-### 约定
+### Conventions
 
-- handler 只用 `c.req.valid()` 获取数据，不使用 `c.req.json()` 或 `c.req.param()`（这些跳过验证）
-- 数据库查询用 `db(c.env)`，依赖注入方式
-- 返回状态码：成功 200，客户端错误 400，未找到 404
-- `c.json(body, status)` 第二个参数是 status code
+- Database queries use `db(c.env)` (dependency injection)
+- Status codes: success → 200, client error → 400, not found → 404
+- `c.json(body, status)` — second arg is the status code
 
----
-
-## 模块入口（index.ts）
-
-创建 `OpenAPIHono` 实例，挂载 `requireAuth`，链式注册路由。
+## Module Entry (index.ts)
 
 ```ts
 import { OpenAPIHono } from "@hono/zod-openapi";
@@ -240,9 +149,32 @@ export const roleApp = app
   .openapi(createRoleRoute, createRoleHandler);
 ```
 
-### 约定
+### Conventions
 
-- `requireAuth` 全局应用在所有路由上
-- `app` 需要 `as OpenAPIHono<AppBindings>` 类型断言（`use` 返回类型收窄问题）
-- 导出命名：`<domain>App`（如 `roleApp`, `departmentApp`）
-- 路由注册顺序：get → post → patch → delete
+- `requireAuth` applied globally via `.use("*", requireAuth)`
+- `as OpenAPIHono<AppBindings>` type assertion needed — `.use()` narrows return type
+- Export named `<domain>App` (e.g., `roleApp`, `departmentApp`)
+- Route registration order: get → post → patch → delete
+
+## Common Utilities (api/common.ts)
+
+Shared helpers at `src/api/common.ts`:
+
+```ts
+export function jsonBody<T extends z.ZodType>(schema: T) { ... }
+export function jsonResponse<T extends z.ZodType>(schema: T, description = "Response successful") { ... }
+export function errorResponse(description = "Error response") { ... }
+
+export interface AppBindings {
+  Bindings: Env;
+  Variables: { userId?: string; roleNames?: string[]; dataScope?: string };
+}
+
+export type AppRouteHandler<R extends RouteConfig> = RouteHandler<R, AppBindings>;
+```
+
+Import from modules as `import { ... } from "../../common"` (relative to `api/v1/<domain>/`).
+
+## Related Skills
+
+- **shared-types-package** — Zod schema definitions consumed by routes and handlers
